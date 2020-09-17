@@ -1,0 +1,30 @@
+<div class="container">
+
+
+  <div class="mt-4">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" >Book name</th>
+          <th scope="col" class="text-primary">Author name</th>
+          <th scope="col" class="text-info">User email</th>
+          <th scope="col" class="text">Date Recieved</th>
+          <th scope="col">Date Returned</th>
+          <th scope="col" class="text-danger">Num of days</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of borrowedBookList">
+            <th  scope="row"><b>{{item.bookname}}</b></th>
+            <td class="text-primary"><b>{{item.authorname}}</b></td>
+            <td class="text-info"><b>{{item.userid}}</b></td>
+            <td><b>{{item.date01}}</b></td>
+            <td><b>{{item.date02}}</b></td>
+            <td  class="text-danger" >
+              <b>{{checkNegativeOrPositive(item.countdays)}}</b>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,211 @@
+<div class="container">
+
+  <div class="mt-5">
+    <div class="card">
+      <div class="card-body">
+        <div class="">
+
+          <div class="">
+              <button (click)="changeLibraryState()" mat-button><mat-icon> {{libraryDetailService?'edit':'information'}} </mat-icon></button>
+            <ng-container  *ngIf="libraryDetailService;then libraryEiditing  else libraryDetails"></ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <ng-template #libraryDetails>
+  <div class="card-header text-secondary">
+    <div class="mat-subheading-2 ">
+      <b>Library id :</b>
+    </div>
+    <div class="mat-subheading-1  form-control">
+      {{libraryModel.id}}
+    </div>
+    <div class="mat-subheading-2 ">
+      <b>Library name :</b>
+    </div>
+    <div class="mat-subheading-1 form-control">
+      {{libraryModel.name}}
+    </div>
+    <div class="mat-subheading-2 ">
+      <b>Address :</b>
+    </div>
+    <div class="mat-subheading-1  form-control">
+      {{libraryModel.address}}
+    </div>
+    <div class="mat-subheading-2 ">
+      <b>Telephone</b>
+    </div>
+    <div class="mat-subheading-1 form-control">
+      {{libraryModel.tel}}
+    </div>
+    <div class="mat-subheading-2">
+      <b>Email :</b>
+    </div>
+    <div class="mat-subheading-1 form-control">
+      {{libraryModel.email}}
+    </div>
+  </div>
+</ng-template>
+
+
+
+<ng-template #libraryEiditing>
+      <div class="pl-5 card-header text-secondary">
+        <div class="mat-subheading-2 ">
+          <b>Address :</b>
+        </div>
+        <input class="mat-subheading-1  form-control" [(ngModel)]="libraryModel.address">
+        <div class="mat-subheading-2 ">
+          <b>Telephone</b>
+        </div>
+        <input class="mat-subheading-1 form-control" [(ngModel)]="libraryModel.tel">
+        <div class="mat-subheading-2 ">
+          <b>Email :</b>
+        </div>
+        <input class="mat-subheading-1 form-control" [(ngModel)]="libraryModel.email" >
+        <div *ngIf="libraryUpdate" class="alert-success mb-3">
+          <b>Successfully updated !</b>
+        </div>
+        <button mat-button (click)="updateLibraryDetails()" >
+          <b class="text-secondary">submit</b>
+        </button>
+      </div>
+
+  </ng-template>
+
+
+
+
+
+
+  <div class="userAccount card mt-5 mb-5">
+
+    <div class="card-body">
+      <button (click)="userDetailTemplate()"  mat-button><mat-icon>
+        {{userDetailState?'information':'edit'}}
+      </mat-icon></button>
+      <ng-container *ngIf="userDetailState;then detailTemplate else editTemplate">
+
+      </ng-container>
+      <ng-template #detailTemplate>
+
+        <div class="card-header">
+          <div class="mat-subheading-2 text-secondary">
+            <b>User id :</b>
+          </div>
+          <div class="mat-subheading-1  form-control">
+            {{userModel.id}}
+          </div>
+          <div class="mat-subheading-2 text-secondary">
+            <b>Name :</b>
+          </div>
+          <div class="mat-subheading-1  form-control">
+            {{userModel.name}}
+          </div>
+          <div class="mat-subheading-2 text-secondary">
+            <b>Email :</b>
+          </div>
+          <div class="mat-subheading-1  form-control">
+            {{userModel.email}}
+          </div>
+          <div class="mat-subheading-2 text-secondary">
+            <b>Address :</b>
+          </div>
+          <div class="mat-subheading-1  form-control">
+            {{userModel.address}}
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #editTemplate>
+
+        <div class="card-header">
+
+
+          <div class="mat-subheading-2 text-secondary">
+            <b>Email :</b>
+          </div>
+          <input class="mat-subheading-1  form-control" [(ngModel)]="userModel.email">
+
+          <div class="mat-subheading-2 text-secondary">
+            <b>Password :</b>
+          </div>
+            <div class="passwordRaw d-inline-block">
+          <mat-form-field >
+            <mat-label> Text</mat-label>
+            <input name="pass1" matInput [(ngModel)]="pass1" >
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Select Time Frame</mat-label>
+            <mat-select [(ngModel)]="pass2" >
+              <mat-option value="HH">HH</mat-option>
+              <mat-option value="mm">mm</mat-option>
+              <mat-option value="m1">m1</mat-option>
+              <mat-option value="m2">m2</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Select Operation</mat-label>
+            <mat-select [(ngModel)]="pass3" >
+              <mat-option value="*">*</mat-option>
+              <mat-option value="/">/</mat-option>
+              <mat-option value="+">+</mat-option>
+              <mat-option value="-">-</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field >
+            <mat-label> Enter Number</mat-label>
+            <input [(ngModel)]="pass4" type="number" matInput >
+          </mat-form-field>
+        </div>
+
+        <div class="mat-subheading-2 text-secondary">
+          <b>Telephone :</b>
+        </div>
+        <input class="mat-subheading-1  form-control" [(ngModel)]="userModel.mnumber">
+
+        <div class="mat-subheading-2 text-secondary">
+          <b>Address :</b>
+        </div>
+        <input class="mat-subheading-1  form-control" [(ngModel)]="userModel.address">
+
+          <div *ngIf="errorInUserUpdate" class="mat-subheading-2 text-success p-3 mb-3">
+            Update Success !
+          </div>
+          <div class="text-secondary">
+            <button (click)="updateUserDetail()" mat-flat-button>Save Changes</button>
+          </div>
+        </div>
+
+      </ng-template>
+    </div>
+
+  </div>
+</div>
+
+<!--
+<ng-container *ngIf="state;then template01 else template02"></ng-container>
+<div *ngIf="state"><h1>TEXT WITH IF ELSE STATEMENT</h1></div>
+
+
+
+<ng-template #template01>
+    <div class="container">
+        <h1>Template 01</h1>
+        <h2>Template 01</h2>
+        <h3>Template 01</h3>
+        <h4>Template 01</h4>
+    </div>
+</ng-template>
+
+
+<ng-template #template02>
+    <div class="container">
+        <h1>Template 02</h1>
+        <h2>Template 02</h2>
+        <h3>Template 02</h3>
+        <h4>Template 02</h4>
+    </div>
+</ng-template>
+-->

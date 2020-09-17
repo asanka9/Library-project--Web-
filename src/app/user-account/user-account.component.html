@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="card mt-5  p-5">
+      <button mat-icon-button (click)="save =! save" >
+        {{save?'edit':'informations'}}
+      </button>
+      <!--
+        <ng-container  *ngIf="libraryDetailService;then libraryEiditing  else libraryDetails"></ng-container>
+      -->
+      <ng-container *ngIf="save;then edit01 else save01" >
+
+      </ng-container>
+
+
+  </div>
+
+  <ng-template #edit01>
+    <div class="card-header">
+
+
+      <div class="form-group">
+        <label>
+          <b class="text-secondary">your email</b>
+        </label>
+        <input class="form-control" [(ngModel)]="uModel.email" >
+      </div>
+
+      <div class="form-group">
+        <div class="mat-subheading-2 text-secondary">
+          <b>Password :</b>
+        </div>
+          <div class="passwordRaw d-inline-block">
+        <mat-form-field >
+          <mat-label> Text</mat-label>
+          <input name="pass1" matInput [(ngModel)]="pass1"  >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Select Time Frame</mat-label>
+          <mat-select [(ngModel)]="pass2" >
+            <mat-option value="HH">HH</mat-option>
+            <mat-option value="mm">mm</mat-option>
+            <mat-option value="m1">m1</mat-option>
+            <mat-option value="m2">m2</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Select Operation</mat-label>
+          <mat-select [(ngModel)]="pass3" >
+            <mat-option value="*">*</mat-option>
+            <mat-option value="/">/</mat-option>
+            <mat-option value="+">+</mat-option>
+            <mat-option value="-">-</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field >
+          <mat-label> Enter Number</mat-label>
+          <input [(ngModel)]="pass4"  type="number" matInput >
+        </mat-form-field>
+      </div>
+      </div>
+
+
+      <div class="alert-success p-3 mb-3" *ngIf="!errorInUserUpdate">
+        <b> Update Succesful !</b>
+      </div>
+
+      <div class="form-group">
+        <button mat-button (click)="updateUserDetail()" >
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #save01>
+    <div class="card-header">
+      <div class="form-group">
+        <label>
+          <b class="text-secondary">your user name</b>
+        </label>
+        <label class="form-control"> {{uModel.name}} </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <b class="text-secondary">your email</b>
+        </label>
+        <label class="form-control"> {{uModel.email}} </label>
+      </div>
+
+    </div>
+  </ng-template>
+
+
+</div>

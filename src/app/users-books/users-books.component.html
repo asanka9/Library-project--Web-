@@ -1,0 +1,279 @@
+<div class="container" *ngIf="!checkNewExternalUser">
+
+  <div *ngIf="isExternalUser" class="mt-5 mb-3">
+    <div class="form-group">
+      <label class="text-dark">
+        <b>Select library</b>
+      </label>
+      <select class="form-control" name="selected" [(ngModel)]="externalSelectedLib"  (click)="selectLibrary()" >
+        <option *ngFor="let item of listOfLibraries ; let i = index" class="p-3" value={{i}} >
+          {{item.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+
+  <div class="categoriess">
+    <div>
+      <button  *ngIf="showBackBuuton" (click)="goMainMenu()" mat-button><b class="text-primary"><- BACK</b></button>
+    </div>
+    <div *ngIf="clickOnCategory">
+
+      <div *ngIf="showEditable" class="updateArea">
+        <div class="row mb-2">
+          <button class="col-6" mat-icon-button (click)="showModal=true"  >
+            <mat-icon>add</mat-icon> Add
+          </button>
+          <button (click)="clickOnUpdateButton()"  class="col-6" mat-icon-button>
+            <mat-icon>update</mat-icon> update
+          </button>
+        </div>
+      </div>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="text-primary">Book name</th>
+            <th scope="col" class="text-secondary">Book Code</th>
+            <th scope="col">Author namme</th>
+            <th scope="col" class="text-info">Location</th>
+
+            <th *ngIf="clickOnUpdate" class="text-success" scope="col" >Save</th>
+            <th *ngIf="clickOnUpdate" class="text-danger" scope="col" >Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+              <tr class="text-secondary" *ngFor="let item of bookModel">
+                <th scope="row">
+                  <div *ngIf="clickOnUpdate">
+                    <input class="form-control" name="name" [(ngModel)]="item.name" placeholder="{{item.name}}">
+                  </div>
+                  <div *ngIf="!clickOnUpdate">
+                    {{item.name}}
+                  </div>
+                </th>
+                <th scope="row">
+                  <div *ngIf="clickOnUpdate">
+                    <input class="form-control" name="bookcode" [(ngModel)]="item.bookcode" placeholder="{{item.bookcode }}">
+                  </div>
+                  <div *ngIf="!clickOnUpdate">
+                    {{item.bookcode }}
+                  </div>
+                </th>
+                <th scope="row">
+                  <div *ngIf="clickOnUpdate">
+                    <input class="form-control" name="authorname" [(ngModel)]="item.authorname" placeholder="{{item.authorname}}">
+                  </div>
+                  <div *ngIf="!clickOnUpdate">
+                    {{item.authorname}}
+                  </div>
+                </th>
+                <th scope="row">
+                  <div *ngIf="clickOnUpdate">
+                    <input class="form-control" name="blocation" [(ngModel)]="item.blocation" placeholder="{{item.blocation}}">
+                  </div>
+                  <div *ngIf="!clickOnUpdate">
+                    {{item.blocation }}
+                  </div>
+                </th>
+
+                <th *ngIf="clickOnUpdate" scope="row">
+                  <button (click)="clickOnSaveButton(item)" mat-icon-button>
+                    <mat-icon>save</mat-icon>
+                  </button>
+                </th>
+                <th *ngIf="clickOnUpdate" scope="row">
+                  <button (click)="clickOnDeleteButton(item)" mat-icon-button >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </th>
+              </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <div class="search" *ngIf="clickOnSearch">
+    <div class="mt-4">
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="text-primary">Book name</th>
+            <th scope="col" class="text-secondary">Book Code</th>
+            <th scope="col">Author namme</th>
+            <th scope="col" class="text-info">Location</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+              <tr class="text-secondary" *ngFor="let item of searchBookModel">
+                <th scope="row">
+                  {{item.name}}
+                  <input *ngIf="showEditable" class="form-control" name="name" [(ngModel)]="item.name"></th>
+                <th scope="row">
+                  {{item.bookcode}}
+                  <input *ngIf="showEditable" class="form-control" name="bookcode" [(ngModel)]="item.bookcode"></th>
+                <th scope="row">
+                  {{item.authorname}}
+                  <input *ngIf="showEditable" class="form-control" name="authorname" [(ngModel)]="item.authorname"></th>
+                <th scope="row">
+                  {{item.blocation}}
+                  <input *ngIf="showEditable" class="form-control" name="blocation" [(ngModel)]="item.blocation"></th>
+                <th *ngIf="showEditable" scope="row">
+                  <button  mat-icon-button>
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </th>
+                <th *ngIf="showEditable" scope="row">
+                  <button  mat-icon-button>
+                    <mat-icon>update</mat-icon>
+                  </button>
+                </th>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+
+ <div  *ngIf="(showSearch)" class="row mt-5 searchBox bg-blue" >
+  <div class="col-3">
+    <mat-form-field >
+      <mat-label> Search with book name</mat-label>
+      <input required  #name="ngModel" matInput [(ngModel)]="bookName" >
+    </mat-form-field>
+  </div>
+
+  <div class="col-3">
+    <mat-form-field >
+      <mat-label> Search with author</mat-label>
+      <input required  #author="ngModel" matInput [(ngModel)]="authorName" >
+    </mat-form-field>
+  </div>
+  <div class="col-3">
+    <button [disabled]="!(author.valid || name.valid)" class="mt-2" mat-icon-button (click)="clickOnSearchButton()" >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+ </div>
+
+
+<mat-nav-list *ngIf="showEditable">
+  <mat-list-item (click)="showCategoryModal=true" >
+    <mat-icon matListIcon>add</mat-icon>
+    <p class="mat-headline text-primary" matLine><b>Create New Category </b></p>
+    <p class="text-primary" matLine>add a description also</p>
+  </mat-list-item>
+</mat-nav-list>
+<mat-divider></mat-divider>
+  <mat-nav-list *ngFor="let item of categoryModel" >
+    <mat-list-item (click)="ClickOnCategory(item.categoryname)" >
+      <mat-icon matListIcon>book</mat-icon>
+      <h1 class="mat-headline" matLine><b>{{item.categoryname}}</b>
+        <span class="ml-2 badge badge-info">{{item.numofbooks}}</span>
+      </h1>
+      <p matLine>{{item.description}}</p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-nav-list>
+
+  <div *ngIf="showModal" [ngClass]="{'show':showModal}" class="modal fade myCard" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add book</h5>
+          <button (click)="showModal=false"  type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #bookForm="ngForm">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Book name:</label>
+              <input name="name" [(ngModel)]="createdBookModel.name" type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Book Code:</label>
+              <input name="bookcode" [(ngModel)]="createdBookModel.bookcode" type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Author name:</label>
+              <input name="authorname" [(ngModel)]="createdBookModel.authorname" type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Book location:</label>
+              <input name="blocation" [(ngModel)]="createdBookModel.blocation" type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Price:</label>
+              <input name="price" [(ngModel)]="createdBookModel.price" type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label *ngIf="errorWithCreateBook" for="recipient-name" class="text-danger  col-form-label">
+               <b>{{createdBookModel.name}}</b> already exits in library !
+              </label>
+
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button (click)="showModal=false"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button (click)="createBook()" type="button" class="btn btn-primary">Add  Book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div *ngIf="showCategoryModal" [ngClass]="{'show':showCategoryModal}" class="modal fade myCard" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+          <button (click)="showCategoryModal=false"  type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #bookForm="ngForm">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">category name:</label>
+              <input name="name" [(ngModel)]="createdCategoryModel.categoryname" type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">category description:</label>
+              <input name="bookcode" [(ngModel)]="createdCategoryModel.description" type="text" class="form-control" id="recipient-name">
+            </div>
+
+            <div class="form-group">
+              <label *ngIf="errorWithCreateCategory" for="recipient-name" class="text-danger  col-form-label">
+               already exits in library !
+              </label>
+
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button (click)="showCategoryModal=false"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button (click)="createNewCategory()" type="button" class="btn btn-primary">Create Category</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-5 mb-5">
+    .
+  </div>
+</div>
+
+

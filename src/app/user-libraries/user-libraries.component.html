@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="mt-5 mb-5">
+    <button mat-raised-button (click)="showAddLibraries = !showAddLibraries" >
+      <mat-icon>
+        add
+      </mat-icon>
+      Add Library
+    </button>
+  </div>
+  <div *ngIf="showAddLibraries" class="mb-5">
+    <div class="card p-5">
+        <form #form1="ngForm"  >
+          <div class="form-group">
+            <label><b>Enter user id</b></label>
+            <input class="form-control" matInput name="id"  ngModel>
+          </div>
+          <div class="form-group">
+            <label><b>Enter password</b></label>
+            <input class="form-control" matInput name="password"  ngModel>
+          </div>
+          <button mat-button (click)="addLibrary(form1)" >
+            <b class="text-secondary" >submit</b>
+          </button>
+        </form>
+    </div>
+  </div>
+
+  <div >
+    <div class="mat-headline">
+      <label>your <b class="text-success">Libraries !</b></label>
+    </div>
+    <div class="card p-5">
+
+      <div   *ngFor="let item of listOfLibraries">
+        <mat-card class="mb-3">
+          <div class="row">
+            <div class="col-6 align-items-end">
+              <mat-card-title>
+                {{item.name}}
+              </mat-card-title>
+            </div>
+            <div class="col-6">
+              <button (click)="deleteLibrary(item.id)" mat-icon-button class="ml-5 pl-5 deleteButton">
+                <mat-icon>
+                  delete
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+          <mat-card-content>
+            {{item.address}}
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-flat-button (click)="goLocationGoogleMap()" ><div class="text-secondary">Go to map</div></button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5 mb-5">
+    .
+  </div>
+
+
+  </div>
+  <div>
+  </div>

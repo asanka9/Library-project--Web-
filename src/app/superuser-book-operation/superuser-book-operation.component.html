@@ -1,0 +1,69 @@
+<div class="container">
+
+  <div class="card mt-5 myCard">
+    <div class="card-header bg-black">
+      <div class="card-title mat-headline">
+        <b>| Borrow Book</b>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <form #borrow="ngForm" class="form">
+        <div class="form-group">
+          <label>
+            <b class="text-primary">User id :</b>
+          </label>
+            <input required  #userId1  name  ="uid" class="form-control" ngModel>
+        </div>
+        <div class="form-group">
+          <label>
+            <b class="text-primary">User book name :</b>
+          </label>
+            <input required #bookName1 name="bname" class="form-control" ngModel>
+        </div>
+        <div class="form-group">
+          <label>
+            <b class="text-primary">Select date </b>
+          </label>
+          <input name="date" type="date" class="form-control" ngModel >
+        </div>
+        <div class="text-danger form-group" *ngIf="errorBorrowed">
+          <b class="text-danger">Failde with borrowed book !!!</b>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-footer">
+      <!--ook/"+lid+"/"+date+"/"+uid+"/"+bname);-->
+      <button [disabled]=borrow.invalid mat-stroked-button (click)="borowBookToUser(borrow)" >SUBMIT</button>
+    </div>
+  </div>
+
+  <div class="card mt-5 myCard mb-5">
+    <div class="card-header">
+      <div class="card-title mat-headline">
+        <b>| Return Book</b>
+      </div>
+
+    </div>
+    <div class="card-body">
+      <form #return="ngForm" class="form">
+        <div class="form-group">
+          <label>
+            <b class="text-primary">Enter user id :</b>
+          </label>
+            <input required ngModel name="uid" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>
+            <b class="text-primary">Enter Book name :</b>
+          </label>
+            <input required ngModel name="bname" class="form-control">
+        </div>
+      </form>
+    </div>
+    <div class="card-footer">
+      <button [disabled]="return.invalid" mat-stroked-button (click)="returnBookFromUser(return)" >SUBMIT</button>
+    </div>
+  </div>
+</div>

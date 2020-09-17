@@ -1,0 +1,300 @@
+<div class="container-fluid">
+  <div class="bg-img">
+    <form action="/action_page.php" class="container" #loginForm ngForm novalidate>
+      <h1>Login</h1>
+
+      <label for="email"><b>User id</b></label>
+      <input  #emailController ="ngModel" [(ngModel)]="user_email" type="text" placeholder="User Id" name="email" required>>
+
+      <label for="psw"><b>User password</b></label>
+      <input [(ngModel)]="user_password"  type="password" placeholder="Enter Password" name="password" required>
+      <div *ngIf="no" class="text-danger mb-1">
+        Invalid credintial !
+      </div>
+      <button queryParamsHandling="merge" class="btn01" type="submit" (click)="loginVerification()" >Login</button>
+    </form>
+  </div>
+
+  <div class="align-items-center pl-5">
+    <div class="row mt-5 pl-5 pr-5">
+      <div class="col-6">
+        <div class="row ">
+          <div class="mat-display-4 textDisplay p-5 text-success">
+            {{numOfUsers}}
+          </div>
+          <div class="mat-display-3 p-5">
+            users
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="mat-display-4 textDisplay p-5 text-info">
+            {{numOfLibraries}}
+          </div>
+          <div class="mat-display-3 p-5">
+            Libraries
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+    <!--
+      <ng-container *ngIf="state;then template01 else template02"></ng-container>
+<div *ngIf="state"><h1>TEXT WITH IF ELSE STATEMENT</h1></div>
+
+
+
+<ng-template #template01>
+    <div class="container">
+        <h1>Template 01</h1>
+        <h2>Template 01</h2>
+        <h3>Template 01</h3>
+        <h4>Template 01</h4>
+    </div>
+</ng-template>
+
+
+<ng-template #template02>
+    <div class="container">
+        <h1>Template 02</h1>
+        <h2>Template 02</h2>
+        <h3>Template 02</h3>
+        <h4>Template 02</h4>
+    </div>
+</ng-template>
+    -->
+
+    <div class="center ml-5 mr-5 pl-5 pr-5 mb-5">
+      <ng-container *ngIf="showexCreate; then exUserCreate else exUserSuccess">
+      </ng-container>
+    </div>
+
+    <div class="center ml-5 mr-5 mb-5 pb-5 pl-5 pr-5">
+        <ng-container *ngIf="!submitted;then login else com">
+        </ng-container>
+    </div>
+
+
+
+
+    <!--This is for Create User Account | External Users-->
+    <ng-template #exUserCreate>
+      <div class="card bg-black">
+        <div class="card-header">
+          <div class="card-title heading text-dark mat-headline">
+            Create <b>Account !</b>
+          </div>
+        </div>
+        <div class="card-body sign">
+          <form #exForm = "ngForm">
+            <div class="form-group">
+              <label>Enter user name :</label>
+              <input  #nameController="ngModel" required class="form-control" name="userName" [(ngModel)]="exUserModel.id">
+              <small class="text-secondary" *ngIf="nameController.invalid && nameController.touched">name is required*</small>
+            </div>
+            <div class="form-group">
+              <label>Enter email :</label>
+              <input #emailControlle="ngModel"  required class="form-control" name="userEmail" [(ngModel)]="exUserModel.email">
+              <small class="text-secondary" *ngIf=" emailControlle.errors?.required && emailControlle.touched">email is required</small>
+              <small class="text-secondary" *ngIf=" emailControlle.errors?.email && emailControlle.touched">Invalid email address</small>
+
+            </div>
+            <div class="form-group">
+              <label>Enter password :</label>
+              <input required #passwordController="ngModel" type="password" class="form-control" name="userPasswor" [(ngModel)]="exUserModel.password">
+              <small class="text-secondary mt-0 pt-0" *ngIf="passwordController.invalid && passwordController.touched">
+                password is required
+              </small>
+            </div>
+            <div class="form-group">
+              <label>Confirm password :</label>
+              <input required #confirmPasswordController="ngModel" type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirm_password">
+              <small class="text-secondary" *ngIf="confirmPasswordController.invalid && confirmPasswordController.touched">
+                password is required
+              </small>
+            </div>
+            <div *ngIf="showExError" class="text-danger">
+              Your user name <b>already exits ! </b> try new One
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button  (click)="createExternalUser()" mat-button [disabled]="exForm.invalid" >
+            <b>Sign Up !</b>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #exUserSuccess>
+      <div class="card">
+        <div class="mat-headline text-success">
+          Your Account Create <b>Success</b>
+        </div>
+      </div>
+    </ng-template>
+
+
+
+
+
+
+
+
+    <ng-template #login>
+      <div class="card">
+        <div class="card-header bg-black">
+          <div class="mat-headline  text-dark ">
+            Add youre library to <b>e-BOOK</b>
+          </div>
+        </div>
+        <div class="card-body sign">
+          <form class="form" #logForm="ngForm" novalidate>
+            <div class="form-group" >
+              <label for="nameid" class="text-primary">
+                Enter Your Name :
+              </label>
+              <input  required name="name" id="nameid" class="form-control" [(ngModel)]="model.name" #name01 = "ngModel">
+              <small class="text-danger" *ngIf="name01.touched && name01.invalid">User name is required*</small>
+            </div>
+            <div class="form-group">
+              <label class="text-primary">
+                Enter Your Email :
+              </label>
+              <div >
+                <input required name="email" class="form-control"  type="email" #emailCOntroller="ngModel" [(ngModel)]="model.id">
+              </div>
+              <small *ngIf="emailCOntroller.touched && emailCOntroller.invalid" class="text-danger">Email is required*</small>
+            </div>
+
+            <div class="form-group">
+              <label><b class="text-primary">Select Gender</b></label>
+              <div class="form-control">
+                <label  class="inline">
+                  <input required type="radio" value="male" #gender="ngModel" name="gender" [(ngModel)]="model.gender"> male
+                </label>
+                <label  class="inline ml-4">
+                  <input required type="radio" value="female" #gender="ngModel" name="gender" [(ngModel)]="model.gender"> female
+                </label>
+              </div>
+            </div>
+            <div class="form-group" >
+              <label for="nameid" class="text-primary">
+                Enter Your nic :
+              </label>
+              <input required  name="nic" id="nameid" class="form-control" [(ngModel)]="model.nic" #nic = "ngModel">
+              <small *ngIf="nic.invalid && nic.touched">NIC is required*</small>
+            </div>
+
+            <div class="form-group" >
+              <label for="nameid" class="text-primary">
+                Enter Your mobile number :
+              </label>
+              <input required  name="mob" id="nameid" class="form-control" [(ngModel)]="model.mnumber" #mobile = "ngModel">
+              <small *ngIf="mobile.invalid && mobile.touched" class="text-danger">Mobile number is required*</small>
+            </div>
+
+            <div class="form-group" >
+              <label for="nameid" class="text-primary">
+                Enter your address :
+              </label>
+              <input required  name="add" id="nameid" class="form-control" [(ngModel)]="model.address" #add = "ngModel">
+              <small *ngIf="add.invalid && add.touched" class="text-danger">Address is required*</small>
+            </div>
+
+            <div class="form-group" >
+              <label for="nameid" class="text-primary">
+                Enter Library Name :
+              </label>
+              <input  required name="lname" id="nameid" class="form-control" [(ngModel)]="libraryName" #lname = "ngModel">
+              <small class="text-danger" *ngIf="lname.invalid && lname.touched">Library name is required*</small>
+            </div>
+
+            <div class="form-group">
+              <label class="text-primary">
+                Select library type :
+              </label>
+              <select class="form-control" name="selected">
+                <option class="p-3" value="Public">
+                  Public
+                </option>
+                <option value="Private">
+                  Private
+                </option>
+              </select>
+            </div>
+
+
+
+          </form>
+        </div>
+        <div class="card-footer">
+          <button  [disabled]="logForm.invalid" (click)="onSubmit()" class="btn btn-primary">Submit Form</button>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #com>
+      <div class="card-header">
+        <h1 class="text-success">Your library added <b>e-BOOK</b> to <b>successfully !</b></h1>
+      </div>
+      <div class="card-body text-success">
+        <div class="mb-2">
+          <div class="form-group">
+            <label><b>User Id</b></label>
+            <div class="form-control">
+              <label>{{model.id}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <div class="form-group">
+            <label><b>Email address</b></label>
+            <div class="form-control">
+              <label>{{model.address}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <div class="form-group">
+            <label><b>Password</b></label>
+            <div class="form-control">
+              <label>{{model.password}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <div class="form-group">
+            <label><b>Mobile number</b></label>
+            <div class="form-control">
+              <label>{{model.mnumber}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <div class="form-group">
+            <label><b>NIC</b></label>
+            <div class="form-control">
+              <label>{{model.nic}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <div class="form-group">
+            <label><b>Address</b></label>
+            <div class="form-control">
+              <label>{{model.address}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+</div>
+
+

@@ -1,0 +1,336 @@
+<div class="container pt-5">
+
+ <div   class="row searchBox bg-blue" >
+  <div class="col-3">
+    <mat-form-field >
+      <mat-label> Enter user id</mat-label>
+      <input required  #name="ngModel" matInput [(ngModel)]="searchUserName" >
+    </mat-form-field>
+  </div>
+  <div class="col-3">
+    <button [disabled]="!(name.valid)" (click)="searchWithId()" class="mt-2" mat-icon-button >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+ </div>
+
+ <div *ngIf="clickOnSearchButtton && !userFound"  class="text-danger mb-4">
+  <span>
+    <b>OOPS ! </b> No user found
+  </span>
+ </div>
+
+<div *ngIf="clickOnSearchButtton && userFound" class="card mb-4">
+  <div class="search card-body" >
+    <div class="">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="text-primary">User name</th>
+            <th scope="col" class="text-secondary">User email</th>
+            <th scope="col" class="text-secondary">User mobile</th>
+            <th scope="col"> Gender</th>
+            <th scope="col" class="text-info">Address</th>
+            <th scope="col" class="text-danger">NIC</th>
+          </tr>
+        </thead>
+        <tbody>
+            <td> {{searchModels.name}} </td>
+            <td> {{searchModels.email}} </td>
+            <td> {{searchModels.mnumber}} </td>
+            <td> {{searchModels.gender}} </td>
+            <td> {{searchModels.address}} </td>
+            <td> {{searchModels.nic}} </td>
+        </tbody>
+      </table>
+  </div>
+ </div>
+</div>
+
+  <ng-container class="mb-5" *ngIf="!submitUser;then user01 else user02"></ng-container>
+  <div class="mt-5 mb-5">
+  <ng-container   *ngIf="!submitAdmin;then admin01 else admin02"></ng-container>
+  </div>
+
+</div>
+
+<ng-template #user01>
+  <div class="card myCard">
+    <div class="card-header bg-black">
+      <div class="mat-headline  text-primary ">
+        Create <b>USER</b>
+      </div>
+    </div>
+    <div class="card-body">
+      <form class="form" #logForm="ngForm" novalidate>
+        <div class="form-group" >
+          <label for="nameid" class="text-primary">
+            <b>Name :</b>
+          </label>
+          <input required name="name" id="nameid" class="form-control" [(ngModel)]="model.name" #name01 = "ngModel">
+          <small class="text-danger" *ngIf="name01.touched && name01.invalid">User name is required*</small>
+        </div>
+        <div class="form-group">
+          <label class="text-primary">
+            <b>Email :</b>
+          </label>
+          <div >
+            <input required name="email" class="form-control"  type="email" #emailCOntroller="ngModel" [(ngModel)]="model.email">
+          </div>
+          <small *ngIf="emailCOntroller.touched && emailCOntroller.invalid" class="text-danger">Email is required*</small>
+        </div>
+
+        <div class="form-group">
+          <label><b class="text-primary">Select Gender</b></label>
+          <div class="form-control">
+            <label  class="inline">
+              <input required type="radio" value="male" #gender="ngModel" name="gender" [(ngModel)]="model.gender"> male
+            </label>
+            <label  class="inline ml-4">
+              <input required type="radio" value="female" #gender="ngModel" name="gender" [(ngModel)]="model.gender"> female
+            </label>
+          </div>
+        </div>
+        <div class="form-group" >
+          <label for="nameid" class="text-primary">
+            <b>NIC :</b>
+          </label>
+          <input required  name="nic" id="nameid" class="form-control" [(ngModel)]="model.nic" #nic = "ngModel">
+          <small *ngIf="nic.invalid && nic.touched">NIC is required*</small>
+        </div>
+
+        <div class="form-group" >
+          <label for="nameid" class="text-primary">
+            <b>Mobile number :</b>
+          </label>
+          <input required  name="mob" id="nameid" class="form-control" [(ngModel)]="model.mnumber" #mobile = "ngModel">
+          <small *ngIf="mobile.invalid && mobile.touched" class="text-danger">Mobile number is required*</small>
+        </div>
+
+        <div class="form-group" >
+          <label for="nameid" class="text-primary">
+            <b>Address :</b>
+          </label>
+          <input required  name="add" id="nameid" class="form-control" [(ngModel)]="model.address" #add = "ngModel">
+          <small *ngIf="add.invalid && add.touched" class="text-danger">Address is required*</small>
+        </div>
+
+
+
+
+        <div  *ngIf="userErrorMessage" class="form-group">
+          <label class="form-control text-danger" name="selected">
+            <b>User name already exits !</b>
+          </label>
+        </div>
+
+
+
+      </form>
+    </div>
+    <div class="card-footer">
+      <button  [disabled]="logForm.invalid" (click)="loginVerification()" class="btn btn-primary">Submit Form</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #user02>
+  <div class="card-header">
+    <h1 class="text-success">User create <b>successfully !</b></h1>
+  </div>
+  <div class="card-body text-success">
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>ID</b></label>
+        <div class="form-control">
+          <label>{{model.id}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>Email address</b></label>
+        <div class="form-control">
+          <label>{{model.address}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>Password</b></label>
+        <div class="form-control">
+          <label>{{model.password}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>Mobile number</b></label>
+        <div class="form-control">
+          <label>{{model.mnumber}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>NIC</b></label>
+        <div class="form-control">
+          <label>{{model.nic}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>Address</b></label>
+        <div class="form-control">
+          <label>{{model.address}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button (click)="goUser()" class="btn btn-success">BACK</button>
+  </div>
+</ng-template>
+
+
+
+
+
+<ng-template #admin01 class="mb-5">
+  <div class="card myCard">
+    <div class="card-header bg-black">
+      <div class="mat-headline  text-primary ">
+        Create <b>ADMIN</b>
+      </div>
+    </div>
+    <div class="card-body">
+      <form class="form" #logForm="ngForm" novalidate>
+        <div class="form-group" >
+          <label for="nameid" class="text-primary">
+            <b>Name :</b>
+          </label>
+          <input  required name="name" id="nameid" class="form-control" [(ngModel)]="smodel.name" #name01 = "ngModel">
+          <small class="text-danger" *ngIf="name01.touched && name01.invalid">User name is required*</small>
+        </div>
+        <div class="form-group">
+          <label class="text-primary">
+            <b>Email :</b>
+          </label>
+          <div >
+            <input required name="email" class="form-control"  type="email" #emailCOntroller="ngModel" [(ngModel)]="smodel.email">
+          </div>
+          <small *ngIf="emailCOntroller.touched && emailCOntroller.invalid" class="text-danger">Email is required*</small>
+        </div>
+
+        <div class="form-group">
+          <label><b class="text-primary">Select Gender</b></label>
+          <div class="form-control">
+            <label  class="inline">
+              <input required type="radio" value="male" #gender="ngModel" name="gender" [(ngModel)]="smodel.gender"> male
+            </label>
+            <label  class="inline ml-4">
+              <input required type="radio" value="female" #gender="ngModel" name="gender" [(ngModel)]="smodel.gender"> female
+            </label>
+          </div>
+        </div>
+        <div class="form-group" >
+          <label for="nameid" class="text-primary">
+            <b>NIC :</b>
+          </label>
+          <input required  name="nic" id="nameid" class="form-control" [(ngModel)]="smodel.nic" #nic = "ngModel">
+          <small *ngIf="nic.invalid && nic.touched">NIC is required*</small>
+        </div>
+
+        <div class="form-group" >
+          <label for="nameid" class="text-primary">
+            <b>Mobile number :</b>
+          </label>
+          <input required  name="mob" id="nameid" class="form-control" [(ngModel)]="smodel.mnumber" #mobile = "ngModel">
+          <small *ngIf="mobile.invalid && mobile.touched" class="text-danger">Mobile number is required*</small>
+        </div>
+
+        <div class="form-group" >
+          <label for="nameid" class="text-primary">
+            <b>Address :</b>
+          </label>
+          <input required  name="add" id="nameid" class="form-control" [(ngModel)]="smodel.address" #add = "ngModel">
+          <small *ngIf="add.invalid && add.touched" class="text-danger">Address is required*</small>
+        </div>
+
+
+
+        <div  *ngIf="adminErrorMessage" class="form-group">
+          <label class="form-control text-danger" name="selected">
+            <b>user name already exits !</b>
+          </label>
+        </div>
+
+
+
+      </form>
+    </div>
+    <div class="card-footer">
+      <button  [disabled]="logForm.invalid" (click)="loginAdminVerification()" class="btn btn-primary">Submit Form</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #admin02 class="mb-5">
+  <div class="card-header">
+    <h1 class="text-success">Admin create <b>successfully !</b></h1>
+  </div>
+  <div class="card-body text-success">
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>ID</b></label>
+        <div class="form-control">
+          <label>{{smodel.id}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>Email address</b></label>
+        <div class="form-control">
+          <label>{{smodel.address}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>Password</b></label>
+        <div class="form-control">
+          <label>{{smodel.password}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>Mobile number</b></label>
+        <div class="form-control">
+          <label>{{smodel.mnumber}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>NIC</b></label>
+        <div class="form-control">
+          <label>{{smodel.nic}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-2">
+      <div class="form-group">
+        <label><b>Address</b></label>
+        <div class="form-control">
+          <label>{{smodel.address}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button (click)="goAdmin()" class="btn btn-success">BACK</button>
+  </div>
+</ng-template>

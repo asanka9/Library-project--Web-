@@ -1,0 +1,98 @@
+ <div class="container-fluid">
+    <mat-toolbar class="navbar" color="green">
+      <div>
+        <label class="navLabel">{{navBrands}}</label>
+      </div>
+      <div [ngSwitch]="ROLE">
+        <div *ngSwitchCase="'external'">
+          <div>
+            <span  (click)="navClickItems(0,'libraries')" [class.navactive]="navItems[0]"
+            class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">Libraries</span>
+            <span  (click)="navClickItems(1,'books')" [class.navactive]="navItems[1]"
+            class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">Search books</span>
+            <span  (click)="navClickItems(2,'myBooks')" [class.navactive]="navItems[2]"
+            class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">Borrowed books</span>
+            <span  (click)="navClickItems(3,'myAccount')" [class.navactive]="navItems[3]"
+            class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">My Account</span>
+          </div>
+        </div>
+        <div *ngSwitchCase="'SUPERUSER'">
+          <div >
+            <span  (click)="navClickItems(0,'bookTask')" [class.navactive]="navItems[0]"
+            class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">Book-Task</span>
+            <span  (click)="navClickItems(1,'books')" [class.navactive]="navItems[1]"
+            class="nav-item mr-3 pl-5 text-info navItem">Books</span>
+            <span  (click)="navClickItems(2,'borrowedBooks')" [class.navactive]="navItems[2]"
+            class="nav-item mr-5 pl-5 text-info navItem">Borrowed-Books</span>
+            <span  (click)="navClickItems(3,'createUsers')" [class.navactive]="navItems[3]"
+            class="nav-item mr-5 pl-5 text-info navItem">Users</span>
+            <span  (click)="navClickItems(4,'settings')" [class.navactive]="navItems[4]"
+            class="nav-item mr-5 pl-5 text-info navItem">Account</span>
+          </div>
+        </div>
+        <div *ngSwitchCase="'ADMIN'">
+          <span class="nav-item mr-3 pl-5 navItem">Libraries</span>
+          <span class="nav-item mr-3 pl-5 navItem">Account</span>
+        </div>
+      </div>
+
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+ </div>
+
+ <!--
+       <div [ngSwitch]="ROLE">
+          <div *ngSwitchCase="'external'">
+            <span class="nav-item mr-3 pl-5 navItem">Books</span>
+            <span class="nav-item mr-3 pl-5 navItem">Borrowed-Books</span>
+            <span class="nav-item mr-5 pl-5 navItem">Account</span>
+          </div>
+          <div *ngSwitchCase="'SUPERUSER'">
+            <span class="nav-item mr-3 pl-5 navItem">Book-Task</span>
+            <span class="nav-item mr-3 pl-5 navItem">Books</span>
+            <span class="nav-item mr-5 pl-5 navItem">Borrowed-Books</span>
+            <span class="nav-item mr-5 pl-5 navItem">Users</span>
+            <span class="nav-item mr-5 pl-5 navItem">Account</span>
+          </div>
+          <div *ngSwitchCase="'ADMIN'">
+            <span class="nav-item mr-3 pl-5 navItem">Libraries</span>
+            <span class="nav-item mr-3 pl-5 navItem">Account</span>
+          </div>
+        </div>
+      </div>
+ -->
+
+ <!--
+
+          <div >
+            <span  (click)="navClickItems(0,'bookTask')" [class.navactive]="navItems[0]"
+            class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">Book-Task</span>
+            <span  (click)="navClickItems(1,'books')" [class.navactive]="navItems[1]"
+            class="nav-item mr-3 pl-5 text-info navItem">Books</span>
+            <span  (click)="navClickItems(2,'borrowedBooks')" [class.navactive]="navItems[2]"
+            class="nav-item mr-5 pl-5 text-info navItem">Borrowed-Books</span>
+            <span  (click)="navClickItems(3,'createUsers')" [class.navactive]="navItems[3]"
+            class="nav-item mr-5 pl-5 text-info navItem">Users</span>
+            <span  (click)="navClickItems(4,'settings')" [class.navactive]="navItems[4]"
+            class="nav-item mr-5 pl-5 text-info navItem">Account</span>
+          </div>
+
+
+ -->
+
+
+ <!--
+
+      <div>
+        <span  (click)="navClickItems(0,'libraries')" [class.navactive]="navItems[0]"
+        class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">Libraries</span>
+        <span  (click)="navClickItems(1,'books')" [class.navactive]="navItems[1]"
+        class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">Search books</span>
+        <span  (click)="navClickItems(2,'myBooks')" [class.navactive]="navItems[2]"
+        class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">Borrowed books</span>
+        <span  (click)="navClickItems(3,'myAccount')" [class.navactive]="navItems[3]"
+        class="nav-item active text-info align-items-center center mr-3 pl-5 navItem">My Account</span>
+      </div>
+
+
+ -->

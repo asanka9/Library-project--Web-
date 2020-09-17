@@ -1,0 +1,28 @@
+.navItem:hover{
+  border-bottom: 2px solid rgba(52, 129, 134, 0.801);
+  cursor: pointer;
+  vertical-align: middle;
+  justify-content: center;
+}
+
+
+
+
+.navactive{
+  border-bottom: 2px solid rgba(52, 129, 134, 0.801);
+  cursor: pointer;
+  vertical-align: middle;
+  justify-content: center;
+}
+
+.navLabel{
+  border: 2px solid black;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navLabel:hover{
+  background-color:  rgba(119, 192, 197, 0.801);
+  color: white;
+  border-color: white;
+}

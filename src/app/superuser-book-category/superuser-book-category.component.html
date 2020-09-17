@@ -1,0 +1,30 @@
+<div>
+  <button (click)="goMainMenu()" mat-button><b class="text-primary"><- BACK</b></button>
+</div>
+<div *ngIf="showGrid">
+
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col" class="text-primary">Book name</th>
+        <th scope="col" class="text-secondary">Book Code</th>
+        <th scope="col">Author namme</th>
+        <th scope="col" class="text-info">Location</th>
+        <th scope="col" class="text-danger">Borrowed</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr  *ngFor="let item of bookModel">
+            <th scope="row">{{item.name}}</th>
+            <th scope="row">{{item.bookcode}}</th>
+            <th scope="row">{{item.authorname}}</th>
+            <th scope="row"> {{item.blocation}}</th>
+            <th scope="row">{{item.borrowed}}</th>
+          </tr>
+
+    </tbody>
+  </table>
+
+</div>
+<router-outlet></router-outlet>
